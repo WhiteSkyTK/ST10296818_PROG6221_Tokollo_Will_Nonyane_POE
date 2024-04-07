@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1", "ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1.csproj", "{9BB3048C-0569-4E2F-9820-4AD4D250D0FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9BB3048C-0569-4E2F-9820-4AD4D250D0FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BB3048C-0569-4E2F-9820-4AD4D250D0FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BB3048C-0569-4E2F-9820-4AD4D250D0FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BB3048C-0569-4E2F-9820-4AD4D250D0FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {766EAB63-116A-4201-858A-15BBDC276F0E}
+	EndGlobalSection
+EndGlobal
