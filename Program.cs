@@ -1,11 +1,15 @@
-﻿using System;
+﻿using ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1;
+using System;
 
 namespace POE
 {
-    //Main method
-    static void Main(string[] args)
+    class Program
     {
-
+        static void Main(string[] args)
+        {
+            Methods.Start();
+        }
     }
 }
-Console.WriteLine("Hello, World!");
+
+
