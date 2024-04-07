@@ -8,6 +8,22 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
 {
     internal class Methods
     {
+        public static void Display()
+        {
+
+        }
+        public static void Scale()
+        {
+
+        }
+        public static void DeleteRecipe()
+        {
+
+        }
+        public static void DeleteAll()
+        {
+
+        }
         public static void close()
         {
             Console.WriteLine("Thank you for using the system");
@@ -17,16 +33,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
 
         public static void Start()
         {
-            Methods.Welcome();
-
             Methods.Option();
         }
 
-        public static void Welcome()
-        {
-            Console.WriteLine("Welcome user to recipez");
-            Console.WriteLine("A place where you can find all types of recipes");
-        }
 
         public static void Option()
         {
@@ -39,5 +48,96 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 "6. Close the program" + "\n" +
                 "Option:");
         }
+
+        public static void add()
+        {
+            //Number of ingredients
+            Console.Write("Please enter the number of ingredients: ");
+            int numIngredints = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < numIngredints; i++)
+            {
+                //Name of ingredints
+                Console.WriteLine();
+                Console.Write("Enter the name of the ingredient: ");
+                string Name = Console.ReadLine();
+
+                //Quantity
+                Console.WriteLine();
+                Console.Write("Enter the quantity: ");
+                int Quantity = Convert.ToInt32(Console.ReadLine());
+
+                //Unit of measure
+                Console.WriteLine();
+                Messages.Unit();
+                int pick = Convert.ToInt32(Console.ReadLine());
+                string Unit;
+                switch (pick)
+                {
+                    case 1:
+                        Unit = "Milliliters";
+                        break;
+                    case 2:
+                        Unit = "Liters";
+                        break;
+                    case 3:
+                        Unit = "Teaspoons";
+                        break;
+                    case 4:
+                        Unit = "Tablespoons";
+                        break;
+                    case 5:
+                        Unit = "Cups";
+                        break;
+                    default:
+                        Console.WriteLine("Please pick a vaild value");
+                        break;
+                }
+            }
+            
+            //number of steps
+            Console.WriteLine();
+            Console.WriteLine("Please enter the number of steps");
+            int step = Convert.ToInt32(Console.ReadLine());
+
+            for(int i = 0; i < step; i++)
+            {
+                //Description for the steps
+                Console.WriteLine();
+                Console.WriteLine("A description of what the user should do");
+                String description = Console.ReadLine();
+            }
+        }
     }
+    class Messages
+    {
+        public static void Welcome()
+        {
+            Console.WriteLine("Welcome user to recipez");
+            Console.WriteLine("A place where you can find all types of recipes");
+        }
+        public static void Unit()
+        {
+            Console.Write("Please pick a unit of measure" + "\n" +
+                "1. Milliliters (ml)" + "\n" +
+                "2. Liters (l)" + "\n" +
+                "3. Teaspoons (tsp)" + "\n" +
+                "4. Tablespoons (tbsp)" + "\n" +
+                "5. Cups" + "\n" +
+                "Option:");
+        }
+    }
+
+    class Ingredient
+    {
+        public string Name { get; set; }
+        public double Quantity { get; set; }
+        public string Unit { get; set; }
+    }
+
+    class Step
+    {
+        public string Description { get; set; }
+    }
+
 }

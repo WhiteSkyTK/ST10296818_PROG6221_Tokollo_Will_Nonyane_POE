@@ -8,10 +8,12 @@ namespace POE
         static void Main(string[] args)
         {
             int option;
+            Messages.Welcome();
             do
             {
                 Methods.Start();
                 option = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
                 switch (option)
                 {
                     case 1:
@@ -19,22 +21,22 @@ namespace POE
                         Methods.add();
                         break;
                     case 2:
-
+                        Methods.Display();
                         break;
                     case 3:
-
+                        Methods.Scale();
                         break;
                     case 4:
-
+                        Methods.DeleteRecipe();
                         break;
                     case 5:
-
+                        Methods.DeleteAll();
                         break;
                     case 6:
-                        End.close();
+                        Methods.close();
                         break;
                     default:
-                        Console.WriteLine("Invaild option. Please pick a option shown above");
+                        Console.WriteLine("\nInvaild option. Please pick a vaild option");
                         break;
                 }
             }
