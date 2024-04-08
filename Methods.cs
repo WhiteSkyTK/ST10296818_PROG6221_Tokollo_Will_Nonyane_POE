@@ -13,7 +13,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         
         public static void Display()
         {
-            string dash = "-------------------------------------------------------------";
+            string dash = "------------------------------------------------------------";
             if (ingredients.Count == 0 && steps.Count == 0)
             {
                 Console.WriteLine("No recipes available");
