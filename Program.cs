@@ -27,12 +27,15 @@ namespace POE
                         Methods.Scale();
                         break;
                     case 4:
-                        Methods.DeleteRecipe();
+                        Methods.resetScale();
                         break;
                     case 5:
-                        Methods.DeleteAll();
+                        Methods.DeleteRecipe();
                         break;
                     case 6:
+                        Methods.DeleteAll();
+                        break;
+                    case 7:
                         Methods.close();
                         break;
                     default:
@@ -40,7 +43,7 @@ namespace POE
                         break;
                 }
             }
-            while (option != 6);
+            while (option != 7);
             
         }
     }

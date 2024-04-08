@@ -37,13 +37,52 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         }
         public static void Scale()
         {
+            string dash = "-------------------------------------------------------------";
+            if (ingredients.Count == 0 && steps.Count == 0)
+            {
+                Console.WriteLine("No recipes available to scale");
+                return;
+            }
+            Methods.scaleOption();
+            double factor;
+            int scaling = Convert.ToInt32(Console.ReadLine());
 
+            switch (scaling)
+            {
+                case 1:
+                    factor = 1.0;
+                    break;
+                case 2:
+                    factor = 2.0;
+                    break;
+                case 3:
+                    factor = 3.0;
+                    break;
+                case 4:
+                    factor = 0.5;
+                    break;
+                default:
+                    Console.WriteLine("Invalid scaling factor.");
+                    return;
+            }
+
+            foreach(Ingredient ingredient in ingredients)
+            {
+                ingredient.Quantity *= factor;
+            }
+
+            Console.WriteLine($"Recipe scaled by a factor of {factor}.");
         }
         public static void DeleteRecipe()
         {
 
         }
         public static void DeleteAll()
+        {
+
+        }
+
+        public static void resetScale()
         {
 
         }
@@ -69,9 +108,22 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 "1. Add a new recipe" + "\n" +
                 "2. Display recipe" + "\n" +
                 "3. Scale recipe" + "\n" +
-                "4. Delete recipe" + "\n" +
-                "5. Clear all data" + "\n" +
-                "6. Close the program" + "\n" +
+                "4. Original scale" + "\n" +
+                "5. Delete recipe" + "\n" +
+                "6. Clear all data" + "\n" +
+                "7. Close the program" + "\n" +
+                "Option:");
+        }
+
+        public static void scaleOption()
+        {
+            string dash = "-------------------------------------------------------------";
+            Console.WriteLine(dash);
+            Console.Write("What would you like to do" + "\n" +
+                "1. Factor of 1 (Default)" + "\n" +
+                "2. Factor of 2 (Double)" + "\n" +
+                "3. Factor of 3 (Triple)" + "\n" +
+                "4. Factor of 0.5 (Half)" + "\n" +
                 "Option:");
         }
 
