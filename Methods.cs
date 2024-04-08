@@ -116,6 +116,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 return;
             }
 
+            //Clears all the values in a arraylist
             ingredients.Clear();
             steps.Clear();
             originalQuantities.Clear();
