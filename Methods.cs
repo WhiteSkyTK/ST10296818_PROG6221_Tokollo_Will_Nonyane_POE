@@ -101,6 +101,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 Console.WriteLine("No recipes available to delete.");
                 return;
             }
+            Console.WriteLine("Feature is not available (Coming Soon)");
         }
 
         //Method to delete all recipes 
@@ -119,7 +120,8 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             //Are you sure message
             Console.WriteLine("Are you sure you want to delete all recipe\n" +
                 "1. Yes\n" +
-                "2. No");
+                "2. No\n" +
+                "Option: ");
             int num = Convert.ToInt32(Console.ReadLine()); //input
             switch(num)
             {
