@@ -302,9 +302,20 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 //For loop to enter the number of steps required
                 for (int i = 0; i < numStep; i++)
                 {
-                    //Description for the steps
-                    Console.Write("\nPlease enter the description of what to do: ");
-                    String description = Console.ReadLine(); //input
+                    string description; //decleartion
+                    //Do loop on error
+                    do
+                    {
+                        //Description for the steps
+                        Console.Write("\nPlease enter the description of what to do: ");
+                        description = Console.ReadLine().Trim(); //input and trim method to remove extra whitespaces
+                        if (string.IsNullOrWhiteSpace(description))
+                        {
+                            Console.WriteLine("Step description cannot be blank. Please enter a valid description.");
+                        }
+                    }
+                    while (string.IsNullOrWhiteSpace(description));
+                    
                     Console.WriteLine(); //line break
                     steps.Add(new Step(description)); //Add to the arraylist
 
