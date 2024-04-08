@@ -123,32 +123,36 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             Console.WriteLine("All recipes have been deleted.");
         }
 
+        //Reset scale method
         public static void resetScale()
         {
+            //if statement that check if there any values in the arraylist
             if(ingredients.Count == 0)
             {
                 Console.WriteLine("No recipe available to reset scale.");
                 return;
             }
 
+            //Loop that scales all quantities
             for(int i = 0; i < ingredients.Count; i++)
             {
                 ingredients[i].Quantity = originalQuantities[i].Quantity;
             }
-
+            //tells the user that everything is fine.
             Console.WriteLine("Scale reset to original values.");
         }
         
+        //method used to close the program
         public static void close()
         {
-            Console.WriteLine("Thank you for using the system");
-            Console.WriteLine("Press any key to close");
+            Console.WriteLine("Thank you for using the system\n" + "Press any key to close");
             Console.ReadKey();
         }
 
+        //Methods to start the program and contains all the methods
         public static void Start()
         {
-            Methods.Option();
+            Methods.Option(); //option menu
         }
 
         //Method to display the main option menu
@@ -185,7 +189,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         //Method used to input recipe
         public static void add()
         {
-            //Used for the interface
+            //Used for the interface6
             string dash = "-------------------------------------------------------------";
            
             //Number of ingredients
@@ -224,7 +228,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                         break;
                     default:
                         Console.WriteLine("Please pick a vaild value");
-                        Unit = "Unknown";
+                        Unit = "Unknown"; //if user breaks the program
                         break;
                 }
 
@@ -240,14 +244,14 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             }
             
             //number of steps
-            Console.Write("\nPlease enter the number of steps:");
+            Console.Write("\nPlease enter the number of steps: ");
             int numStep = Convert.ToInt32(Console.ReadLine()); //input for number of steps 
 
             //For loop to enter the number of steps required
             for(int i = 0; i < numStep; i++)
             {
                 //Description for the steps
-                Console.Write("\nPlease enter the description of what to do:");
+                Console.Write("\nPlease enter the description of what to do: ");
                 String description = Console.ReadLine(); //input
                 Console.WriteLine(); //line break
                 steps.Add(new Step(description)); //Add to the arraylist
@@ -267,7 +271,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         public static void Welcome()
         {
             Console.WriteLine("Welcome user to recipez!!!!" + 
-                "A place where you can find all types of recipes\n");
+                "\nA place where you can find all types of recipes");
         }
 
         //method of the display menu for the unit of measure
@@ -278,7 +282,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 "2. Tablespoons (tbsp)" + "\n" +
                 "3. Cups" + "\n" +
                 "4. Others" + "\n" +
-                "Option:");
+                "Option: ");
         }
     }
 
