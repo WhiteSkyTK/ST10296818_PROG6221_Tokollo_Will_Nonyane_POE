@@ -191,76 +191,144 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         {
             //Used for the interface6
             string dash = "-------------------------------------------------------------";
-           
-            //Number of ingredients
-            Console.Write("Please enter the number of ingredients needed: ");
-            int numIngredints = Convert.ToInt32(Console.ReadLine()); //input for the number of ingredients needed
 
-            //For loop for the number of ingredients needed
-            for (int i = 0; i < numIngredints; i++)
+            //decleartion
+            int numIngredints;
+            //Do loop which ensure that the user enters the correct vaule
+            do
             {
-                //Name of ingredints
-                Console.WriteLine(); // line break
-                Console.Write("Enter the name of the ingredient: ");
-                string Name = Console.ReadLine(); //input for the name of the ingredient 
-
-                //Unit of measure
-                Console.WriteLine(); //line break
-                Messages.Unit(); //calling display menu for the units of measure
-                int pick = Convert.ToInt32(Console.ReadLine()); //input for unit option
-                string Unit; //declearation for unit
-
-                //switch for unit options
-                switch (pick)
+                Console.Write("Please enter the number of ingredients needed: ");
+                if (!int.TryParse(Console.ReadLine(), out numIngredints) || numIngredints <= 0) //input for the number of ingredients needed
                 {
-                    case 1:
-                        Unit = "Teaspoons";
-                        break;
-                    case 2:
-                        Unit = "Tablespoons";
-                        break;
-                    case 3:
-                        Unit = "Cups";
-                        break;
-                    case 4:
-                        Console.WriteLine("Please enter a unit of measurement");
-                        Unit = Console.ReadLine();
-                        break;
-                    default:
-                        Console.WriteLine("Please pick a vaild value");
-                        Unit = "Unknown"; //if user breaks the program
-                        break;
+                    Console.WriteLine("Invalid input. Please enter a vaild integer.");
+                }
+            }
+            while(numIngredints <= 0);
+                
+            //Try and catch to handle human errors
+            try
+            { 
+                //For loop for the number of ingredients needed
+                for (int i = 0; i < numIngredints; i++)
+                {
+                    string Name; //decleartion
+                    //Do loop which checks for whitespaces
+                    do
+                    {
+                        //Name of ingredints
+                        Console.WriteLine(); // line break
+                        Console.Write("Enter the name of the ingredient: ");
+                        Name = Console.ReadLine(); //input for the name of the ingredient 
+                        if (string.IsNullOrWhiteSpace(Name))
+                        {
+                            Console.WriteLine("Ingredient name cannot be blank. Please enter a valid name.");
+                        }
+                    }
+                    while (string.IsNullOrWhiteSpace(Name));
+
+                    string Unit; //declearation for unit
+                    //Do loop which loop on error
+                    do
+                    {
+                        //Unit of measure
+                        Console.WriteLine(); //line break
+                        Messages.Unit(); //calling display menu for the units of measure
+                        int pick; 
+                        if (int.TryParse(Console.ReadLine(), out pick) && pick >= 1 && pick <= 4) //input for unit option
+                        {
+                            //switch for unit options
+                            switch (pick)
+                            {
+                                case 1:
+                                    Unit = "Teaspoons";
+                                    break;
+                                case 2:
+                                    Unit = "Tablespoons";
+                                    break;
+                                case 3:
+                                    Unit = "Cups";
+                                    break;
+                                case 4:
+                                    Console.WriteLine("Please enter a unit of measurement");
+                                    Unit = Console.ReadLine();
+                                    break;
+                                default:
+                                    Console.WriteLine("Please pick a vaild value");
+                                    throw new ArgumentOutOfRangeException(); //
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input. Please enter a valid option (1-4).");
+                            Unit = null; //Set unit to null so it can loop
+                        }
+                    }
+                    while (Unit == null);
+
+                    double Quantity; //decleartion
+                    //Do loop which loops on error
+                    do
+                    {
+                        //Quantity
+                        Console.Write("\nEnter the quantity for " + Name + " (Only a interger): ");
+                        if (!double.TryParse(Console.ReadLine(), out Quantity) || Quantity <= 0) //input for quantity
+                        {
+                            Console.WriteLine("Invalid input. Please enter a valid positive number.");
+                        }
+                    } 
+                    while (Quantity <= 0);
+
+                    ingredients.Add(new Ingredient(Name, Quantity, Unit)); //adds the name, quantity and unit to the arraylist
+                    Console.WriteLine(dash + "\nIngredient " + (i + 1) + " Has Been Saved\n" + dash); //interface layout
+
+                    // Add original quantities to the arraylist
+                    originalQuantities.AddRange(ingredients.Select(i => new Ingredient(i.Name, i.Quantity, i.Unit)));
                 }
 
-                //Quantity
-                Console.Write("\nEnter the quantity (Only a interger): ");
-                int Quantity = Convert.ToInt32(Console.ReadLine()); //input for quantity
+                int numStep; //decleartion
+                //Do loop which loops on error
+                do
+                {
+                    //number of steps
+                    Console.Write("\nPlease enter the number of steps: ");
+                    if (!int.TryParse(Console.ReadLine(), out numStep) || numStep <= 0)  //input for number of steps 
 
-                ingredients.Add(new Ingredient(Name, Quantity, Unit)); //adds the name, quantity and unit to the arraylist
-                Console.WriteLine(dash + "\nIngredient " + (i + 1) + " Has Been Saved\n" + dash); //interface layout
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid integer.");
+                    }
+                } 
+                while (numStep <= 0);
+                
+                //For loop to enter the number of steps required
+                for (int i = 0; i < numStep; i++)
+                {
+                    //Description for the steps
+                    Console.Write("\nPlease enter the description of what to do: ");
+                    String description = Console.ReadLine(); //input
+                    Console.WriteLine(); //line break
+                    steps.Add(new Step(description)); //Add to the arraylist
 
-                // Add original quantities to the arraylist
-                originalQuantities.AddRange(ingredients.Select(i => new Ingredient(i.Name, i.Quantity, i.Unit)));
+                    //Show user which step they are on
+                    Console.WriteLine("\nStep " + (i + 1) + " Has Been Saved");
+                }
+                //Write line statement to notify user that every is good
+                Console.WriteLine("\nInformation has been saved successfully");
             }
-            
-            //number of steps
-            Console.Write("\nPlease enter the number of steps: ");
-            int numStep = Convert.ToInt32(Console.ReadLine()); //input for number of steps 
-
-            //For loop to enter the number of steps required
-            for(int i = 0; i < numStep; i++)
+            //This catchs invalid inputs for integers
+            catch(FormatException)
             {
-                //Description for the steps
-                Console.Write("\nPlease enter the description of what to do: ");
-                String description = Console.ReadLine(); //input
-                Console.WriteLine(); //line break
-                steps.Add(new Step(description)); //Add to the arraylist
-
-                //Show user which step they are on
-                Console.WriteLine("\nStep " + (i + 1) + " Has Been Saved");
+                Console.WriteLine("Invaild input. Please enter a valid number.");
             }
-            //Write line statement to notify user that every is good
-            Console.WriteLine("\nInformation has been saved successfully");
+
+            catch(ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            //This catchs all types of errors
+            catch (Exception) 
+            {
+                Console.WriteLine("Something went wrong.");
+            }
         }
     }
 
