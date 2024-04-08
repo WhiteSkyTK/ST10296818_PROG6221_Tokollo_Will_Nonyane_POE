@@ -8,9 +8,27 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
 {
     internal class Methods
     {
+        private static List<Ingredient> ingredients = new List<Ingredient>();
+        private static List<Step> steps = new List<Step>();
         public static void Display()
         {
+            if(ingredients.Count == 0 && steps.Count == 0)
+            {
+                Console.WriteLine("No recipes available");
+                return;
+            }
 
+            Console.WriteLine("Ingredient:");
+            foreach(Ingredient ingredient in ingredients)
+            {
+                Console.WriteLine($"{ingredient.Name}: {ingredient.Quantity} {ingredient.Unit}");
+            }
+
+            Console.WriteLine("\nSteps:");
+            for(int i = 0; i < steps.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {steps[i].Description}");
+            }
         }
         public static void Scale()
         {
@@ -99,21 +117,25 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                         break;
                     default:
                         Console.WriteLine("Please pick a vaild value");
+                        Unit = "Unknown";
                         break;
                 }
+
+                ingredients.Add(new Ingredient(Name, Quantity, Unit));
             }
             
             //number of steps
             Console.WriteLine();
             Console.WriteLine("Please enter the number of steps");
-            int step = Convert.ToInt32(Console.ReadLine());
+            int numStep = Convert.ToInt32(Console.ReadLine());
 
-            for(int i = 0; i < step; i++)
+            for(int i = 0; i < numStep; i++)
             {
                 //Description for the steps
                 Console.WriteLine();
                 Console.WriteLine("A description of what the user should do");
                 String description = Console.ReadLine();
+                steps.Add(new Step(description));  
             }
         }
     }
