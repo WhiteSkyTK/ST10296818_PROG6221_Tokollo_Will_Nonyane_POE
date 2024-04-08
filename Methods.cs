@@ -10,7 +10,8 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
     {
         private static List<Ingredient> ingredients = new List<Ingredient>();
         private static List<Step> steps = new List<Step>();
-        
+        private static List<Ingredient> originalQuantities = new List<Ingredient>();
+
         public static void Display()
         {
             string dash = "------------------------------------------------------------";
@@ -176,6 +177,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 Console.WriteLine(dash);
                 Console.WriteLine("\nIngredient " + (i + 1) + " Has Been Saved");
                 Console.WriteLine(dash);
+
+                // Add original quantities to the list
+                originalQuantities.AddRange(ingredients.Select(i => new Ingredient(i.Name, i.Quantity, i.Unit)));
             }
             
             //number of steps
