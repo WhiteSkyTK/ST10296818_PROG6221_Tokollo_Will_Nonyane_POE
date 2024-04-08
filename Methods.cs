@@ -24,6 +24,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         {
 
         }
+        
         public static void close()
         {
             Console.WriteLine("Thank you for using the system");
@@ -51,6 +52,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
 
         public static void add()
         {
+            List<Ingredient> ingredients = new List<Ingredient>();
+            List<Step> steps = new List<Step>();
+
             //Number of ingredients
             Console.Write("Please enter the number of ingredients: ");
             int numIngredints = Convert.ToInt32(Console.ReadLine());
@@ -89,6 +93,10 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                     case 5:
                         Unit = "Cups";
                         break;
+                    case 6:
+                        Console.WriteLine("Please enter a unit of measurement");
+                        Unit = Console.ReadLine();
+                        break;
                     default:
                         Console.WriteLine("Please pick a vaild value");
                         break;
@@ -124,6 +132,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 "3. Teaspoons (tsp)" + "\n" +
                 "4. Tablespoons (tbsp)" + "\n" +
                 "5. Cups" + "\n" +
+                "6. Others" + "\n" +
                 "Option:");
         }
     }
@@ -133,11 +142,25 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         public string Name { get; set; }
         public double Quantity { get; set; }
         public string Unit { get; set; }
+
+        public Ingredient(string name, double quantity, string unit)
+        {
+            Name = name;
+            Quantity = quantity;
+            Unit = unit;
+        }
     }
 
     class Step
     {
         public string Description { get; set; }
+
+        public Step(string description)
+        {
+            Description = description; 
+        }
     }
+
+    
 
 }
