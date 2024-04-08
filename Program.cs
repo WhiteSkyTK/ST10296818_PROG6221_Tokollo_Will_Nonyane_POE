@@ -49,18 +49,24 @@ namespace POE
                             Methods.close();
                             break;
                         default:
+                            Console.ForegroundColor = ConsoleColor.Red; //set color
                             Console.WriteLine("\nInvaild option. Please pick a valid option"); //
+                            Console.ResetColor(); //reset color
                             break;
                     }
                 }
                 catch(FormatException) //
                 {
+                    Console.ForegroundColor = ConsoleColor.Red; //set color
                     Console.WriteLine("\nInvaild option. PLease pick a valid option");
+                    Console.ResetColor(); //reset color
                     option = -1; //set it to a invalid value so it can loop
                 }
                 catch(Exception ex) //
                 {
+                    Console.ForegroundColor = ConsoleColor.Red; //set color
                     Console.WriteLine($"\nAn error occurred: {ex.Message}");
+                    Console.ResetColor(); //Resetcolor
                     option = -1; //set it to a invalid value so it can loop
                 }
             }

@@ -18,37 +18,51 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         {
             //Dash string used for the interface of the program
             string dash = "------------------------------------------------------------";
-            
+
             //If statement used to check if any values in the array
             if (ingredients.Count == 0 && steps.Count == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red; //set color
                 Console.WriteLine("No recipes available to display.");
+                Console.ResetColor();
                 return;
             }
 
             //Interface and the display (with uses a foreach loop and a for loop)
-            Console.WriteLine(dash + "\nDisplay:\n" + dash + "\nIngredient:");
+            
+            Console.ForegroundColor = ConsoleColor.Cyan; //set color
+            Console.WriteLine(dash);
+            Console.WriteLine("Display:");
+            Console.WriteLine(dash);
+            Console.ResetColor(); //reset color
+            Console.ForegroundColor = ConsoleColor.Magenta; //set color
+            Console.WriteLine("Ingredient:");
+            Console.ResetColor(); //reset color
             foreach(Ingredient ingredient in ingredients)
             {
                 Console.WriteLine($"{ingredient.Name}: {ingredient.Quantity} {ingredient.Unit}");
             }
 
+            Console.ForegroundColor = ConsoleColor.Magenta; //set color
             Console.WriteLine("\nSteps:");
-            for(int i = 0; i < steps.Count; i++)
+            Console.ResetColor(); //reset color
+            for (int i = 0; i < steps.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {steps[i].Description}");
             }
+            Console.ForegroundColor = ConsoleColor.Cyan; //set color
             Console.WriteLine(dash + "\n");
+            Console.ResetColor();
         }
 
         //Scaling method to scale up or down the recipes ingredeint
         public static void Scale()
         {
-            //Dash string for the interface and if statement to check if there is any values in the arraylist
-            string dash = "-------------------------------------------------------------";
             if (ingredients.Count == 0 && steps.Count == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red; //set color
                 Console.WriteLine("No recipes available to scale.");
+                Console.ResetColor();
                 return;
             }
 
@@ -75,7 +89,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                     factor = 0.5; // half the value
                     break;
                 default:
+                    Console.ForegroundColor = ConsoleColor.Red; //set color
                     Console.WriteLine("Invalid scaling factor."); //invalid option
+                    Console.ResetColor();
                     return;
             }
 
@@ -86,34 +102,36 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             }
 
             //write line statement which tells the user that everything is good
+            Console.ForegroundColor = ConsoleColor.Green; //set color
             Console.WriteLine($"Recipe scaled by a factor of {factor}.");
+            Console.ResetColor(); //reset color
         }
 
         //Delete recipe method used to delete a recipe(COMING SOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON)
         public static void DeleteRecipe()
         {
-            //Used for the interface of the program
-            string dash = "------------------------------------------------------------";
-            
             //if statemant which checks if the are any values in the arraylist
             if (ingredients.Count == 0 && steps.Count == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red; //set color
                 Console.WriteLine("No recipes available to delete.");
+                Console.ResetColor(); //reset color
                 return;
             }
+            Console.ForegroundColor = ConsoleColor.Green; //set color
             Console.WriteLine("Feature is not available (Coming Soon)");
+            Console.ResetColor(); //reset color
         }
 
         //Method to delete all recipes 
         public static void DeleteAll()
         {
-            //used foe the interface of the program
-            string dash = "------------------------------------------------------------";
-            
             //if statement to check if there is any values in the arraylist
             if (ingredients.Count == 0 && steps.Count == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red; //set color
                 Console.WriteLine("No recipes available to delete");
+                Console.ResetColor(); //reset color
                 return;
             }
 
@@ -130,7 +148,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                     ingredients.Clear();
                     steps.Clear();
                     originalQuantities.Clear();
+                    Console.ForegroundColor = ConsoleColor.Green; //set color
                     Console.WriteLine("All recipes have been deleted.");
+                    Console.ResetColor();
                     break;
                 case 2:
                     break;
@@ -143,7 +163,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             //if statement that check if there any values in the arraylist
             if(ingredients.Count == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red; //set color
                 Console.WriteLine("No recipe available to reset scale.");
+                Console.ResetColor();
                 return;
             }
 
@@ -153,13 +175,17 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 ingredients[i].Quantity = originalQuantities[i].Quantity;
             }
             //tells the user that everything is fine.
+            Console.ForegroundColor = ConsoleColor.Green; //set color
             Console.WriteLine("Scale reset to original values.");
+            Console.ResetColor(); //reset color
         }
         
         //method used to close the program
         public static void close()
         {
+            Console.ForegroundColor= ConsoleColor.Green; //set color
             Console.WriteLine("Thank you for using the system\n" + "Press any key to close");
+            Console.ResetColor(); //reset color
             Console.ReadKey();
         }
 
@@ -173,9 +199,12 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         public static void Option()
         {
             //Used for the interface
-            string dash = "-------------------------------------------------------------";
-            
-            Console.Write(dash + "\nWhat would you like to do" + "\n" +
+            string dash = "------------------------------------------------------------";
+
+            Console.ForegroundColor = ConsoleColor.Cyan; //set color
+            Console.WriteLine(dash);
+            Console.ResetColor(); //reset color
+            Console.Write("What would you like to do" + "\n" +
                 "1. Add a new recipe" + "\n" +
                 "2. Display recipe" + "\n" +
                 "3. Scale recipe" + "\n" +
@@ -190,9 +219,12 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         public static void scaleOption()
         {
             //used for the interface 
-            string dash = "-------------------------------------------------------------";
-            
-            Console.Write(dash +"\nWhat would you like to do" + "\n" +
+            string dash = "------------------------------------------------------------";
+
+            Console.ForegroundColor = ConsoleColor.Cyan; //set color
+            Console.WriteLine(dash);
+            Console.ResetColor(); //reset color
+            Console.Write("What would you like to do" + "\n" +
                 "1. Factor of 1 (Default)" + "\n" +
                 "2. Factor of 2 (Double)" + "\n" +
                 "3. Factor of 3 (Triple)" + "\n" +
@@ -203,8 +235,8 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         //Method used to input recipe
         public static void add()
         {
-            //Used for the interface6
-            string dash = "-------------------------------------------------------------";
+            //Used for the interface
+            string dash = "------------------------------------------------------------";
 
             //decleartion
             int numIngredints;
@@ -214,7 +246,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 Console.Write("Please enter the number of ingredients needed: ");
                 if (!int.TryParse(Console.ReadLine(), out numIngredints) || numIngredints <= 0) //input for the number of ingredients needed
                 {
+                    Console.ForegroundColor = ConsoleColor.Red; //set color
                     Console.WriteLine("Invalid input. Please enter a vaild integer.");
+                    Console.ResetColor(); //reset color 
                 }
             }
             while(numIngredints <= 0);
@@ -235,7 +269,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                         Name = Console.ReadLine(); //input for the name of the ingredient 
                         if (string.IsNullOrWhiteSpace(Name))
                         {
+                            Console.ForegroundColor = ConsoleColor.Red; //set color
                             Console.WriteLine("Ingredient name cannot be blank. Please enter a valid name.");
+                            Console.ResetColor(); //reset color
                         }
                     }
                     while (string.IsNullOrWhiteSpace(Name));
@@ -267,13 +303,17 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                                     Unit = Console.ReadLine();
                                     break;
                                 default:
+                                    Console.ForegroundColor = ConsoleColor.Red; //set color
                                     Console.WriteLine("Please pick a vaild value");
+                                    Console.ResetColor(); //reset color
                                     throw new ArgumentOutOfRangeException(); //
                             }
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Red; //set color
                             Console.WriteLine("Invalid input. Please enter a valid option (1-4).");
+                            Console.ResetColor(); //reset color
                             Unit = null; //Set unit to null so it can loop
                         }
                     }
@@ -287,13 +327,21 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                         Console.Write("\nEnter the quantity for " + Name + " (Only a interger): ");
                         if (!double.TryParse(Console.ReadLine(), out Quantity) || Quantity <= 0) //input for quantity
                         {
+                            Console.ForegroundColor = ConsoleColor.Red; //set color
                             Console.WriteLine("Invalid input. Please enter a valid positive number.");
+                            Console.ResetColor(); //reset color 
                         }
                     } 
                     while (Quantity <= 0);
 
                     ingredients.Add(new Ingredient(Name, Quantity, Unit)); //adds the name, quantity and unit to the arraylist
-                    Console.WriteLine(dash + "\nIngredient " + (i + 1) + " Has Been Saved\n" + dash); //interface layout
+                    Console.ForegroundColor = ConsoleColor.Cyan; //set color
+                    Console.WriteLine(dash);
+                    Console.ResetColor(); //reset color
+                    Console.WriteLine("Ingredient " + (i + 1) + " Has Been Saved"); //interface layout
+                    Console.ForegroundColor = ConsoleColor.Cyan; //set color
+                    Console.WriteLine(dash);
+                    Console.ResetColor(); //reset color
 
                     // Add original quantities to the arraylist
                     originalQuantities.AddRange(ingredients.Select(i => new Ingredient(i.Name, i.Quantity, i.Unit)));
@@ -308,7 +356,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                     if (!int.TryParse(Console.ReadLine(), out numStep) || numStep <= 0)  //input for number of steps 
 
                     {
+                        Console.ForegroundColor = ConsoleColor.Red; //set color
                         Console.WriteLine("Invalid input. Please enter a valid integer.");
+                        Console.ResetColor(); //reset color
                     }
                 } 
                 while (numStep <= 0);
@@ -325,7 +375,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                         description = Console.ReadLine().Trim(); //input and trim method to remove extra whitespaces
                         if (string.IsNullOrWhiteSpace(description))
                         {
+                            Console.ForegroundColor = ConsoleColor.Red; //set color
                             Console.WriteLine("Step description cannot be blank. Please enter a valid description.");
+                            Console.ResetColor(); //reset color
                         }
                     }
                     while (string.IsNullOrWhiteSpace(description));
@@ -337,22 +389,30 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                     Console.WriteLine("\nStep " + (i + 1) + " Has Been Saved");
                 }
                 //Write line statement to notify user that every is good
+                Console.ForegroundColor = ConsoleColor.Green; //set color
                 Console.WriteLine("\nInformation has been saved successfully");
+                Console.ResetColor(); //reset color
             }
             //This catchs invalid inputs for integers
             catch(FormatException)
             {
+                Console.ForegroundColor = ConsoleColor.Red; //set color
                 Console.WriteLine("Invaild input. Please enter a valid number.");
+                Console.ResetColor(); //reset color
             }
 
             catch(ArgumentException e)
             {
+                Console.ForegroundColor = ConsoleColor.Red; //set color
                 Console.WriteLine(e.Message);
+                Console.ResetColor(); //reset color
             }
             //This catchs all types of errors
             catch (Exception) 
             {
+                Console.ForegroundColor = ConsoleColor.Red; //set color
                 Console.WriteLine("Something went wrong.");
+                Console.ResetColor(); //reset color
             }
         }
     }
@@ -363,8 +423,10 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         //method of the welcome screen
         public static void Welcome()
         {
+            Console.ForegroundColor = ConsoleColor.White; //set color
             Console.WriteLine("Welcome user to recipez!!!!" + 
                 "\nA place where you can find all types of recipes");
+            Console.ResetColor(); //reseting the color
         }
 
         //method of the display menu for the unit of measure
