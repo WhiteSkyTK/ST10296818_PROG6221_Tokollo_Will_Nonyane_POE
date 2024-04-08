@@ -10,14 +10,17 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
     {
         private static List<Ingredient> ingredients = new List<Ingredient>();
         private static List<Step> steps = new List<Step>();
+        
         public static void Display()
         {
-            if(ingredients.Count == 0 && steps.Count == 0)
+            string dash = "-------------------------------------------------------------";
+            if (ingredients.Count == 0 && steps.Count == 0)
             {
                 Console.WriteLine("No recipes available");
                 return;
             }
 
+            Console.WriteLine(dash);
             Console.WriteLine("Ingredient:");
             foreach(Ingredient ingredient in ingredients)
             {
@@ -29,6 +32,8 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             {
                 Console.WriteLine($"{i + 1}. {steps[i].Description}");
             }
+            Console.WriteLine(dash);
+            Console.WriteLine();
         }
         public static void Scale()
         {
@@ -58,6 +63,8 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
 
         public static void Option()
         {
+            string dash = "-------------------------------------------------------------";
+            Console.WriteLine(dash);
             Console.Write("What would you like to do" + "\n" +
                 "1. Add a new recipe" + "\n" +
                 "2. Display recipe" + "\n" +
@@ -70,11 +77,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
 
         public static void add()
         {
-            List<Ingredient> ingredients = new List<Ingredient>();
-            List<Step> steps = new List<Step>();
-
+            string dash = "-------------------------------------------------------------";
             //Number of ingredients
-            Console.Write("Please enter the number of ingredients: ");
+            Console.Write("Please enter the number of ingredients needed: ");
             int numIngredints = Convert.ToInt32(Console.ReadLine());
 
             for (int i = 0; i < numIngredints; i++)
@@ -84,11 +89,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 Console.Write("Enter the name of the ingredient: ");
                 string Name = Console.ReadLine();
 
-                //Quantity
-                Console.WriteLine();
-                Console.Write("Enter the quantity: ");
-                int Quantity = Convert.ToInt32(Console.ReadLine());
-
                 //Unit of measure
                 Console.WriteLine();
                 Messages.Unit();
@@ -97,21 +97,15 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 switch (pick)
                 {
                     case 1:
-                        Unit = "Milliliters";
-                        break;
-                    case 2:
-                        Unit = "Liters";
-                        break;
-                    case 3:
                         Unit = "Teaspoons";
                         break;
-                    case 4:
+                    case 2:
                         Unit = "Tablespoons";
                         break;
-                    case 5:
+                    case 3:
                         Unit = "Cups";
                         break;
-                    case 6:
+                    case 4:
                         Console.WriteLine("Please enter a unit of measurement");
                         Unit = Console.ReadLine();
                         break;
@@ -121,40 +115,49 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                         break;
                 }
 
+                //Quantity
+                Console.WriteLine();
+                Console.Write("Enter the quantity (Only a interger): ");
+                int Quantity = Convert.ToInt32(Console.ReadLine());
+
                 ingredients.Add(new Ingredient(Name, Quantity, Unit));
+                Console.WriteLine(dash);
+                Console.WriteLine("\nIngredient " + (i + 1) + " Has Been Saved");
+                Console.WriteLine(dash);
             }
             
             //number of steps
             Console.WriteLine();
-            Console.WriteLine("Please enter the number of steps");
+            Console.Write("Please enter the number of steps:");
             int numStep = Convert.ToInt32(Console.ReadLine());
 
             for(int i = 0; i < numStep; i++)
             {
                 //Description for the steps
                 Console.WriteLine();
-                Console.WriteLine("A description of what the user should do");
+                Console.Write("Please enter the description of what to do:");
                 String description = Console.ReadLine();
-                steps.Add(new Step(description));  
+                Console.WriteLine();
+                steps.Add(new Step(description));
+                Console.WriteLine("\nStep " + (i + 1) + " Has Been Saved");
             }
+            Console.WriteLine("\nInformation has been saved successfully");
         }
     }
     class Messages
     {
         public static void Welcome()
         {
-            Console.WriteLine("Welcome user to recipez");
+            Console.WriteLine("Welcome user to recipez!!!!");
             Console.WriteLine("A place where you can find all types of recipes");
         }
         public static void Unit()
         {
             Console.Write("Please pick a unit of measure" + "\n" +
-                "1. Milliliters (ml)" + "\n" +
-                "2. Liters (l)" + "\n" +
-                "3. Teaspoons (tsp)" + "\n" +
-                "4. Tablespoons (tbsp)" + "\n" +
-                "5. Cups" + "\n" +
-                "6. Others" + "\n" +
+                "1. Teaspoons (tsp)" + "\n" +
+                "2. Tablespoons (tbsp)" + "\n" +
+                "3. Cups" + "\n" +
+                "4. Others" + "\n" +
                 "Option:");
         }
     }
