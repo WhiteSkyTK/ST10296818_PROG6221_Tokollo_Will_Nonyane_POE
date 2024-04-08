@@ -17,12 +17,11 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             string dash = "------------------------------------------------------------";
             if (ingredients.Count == 0 && steps.Count == 0)
             {
-                Console.WriteLine("No recipes available");
+                Console.WriteLine("No recipes available to display");
                 return;
             }
 
-            Console.WriteLine(dash);
-            Console.WriteLine("Ingredient:");
+            Console.WriteLine(dash + "\nDisplay:\n" + dash + "\nIngredient:");
             foreach(Ingredient ingredient in ingredients)
             {
                 Console.WriteLine($"{ingredient.Name}: {ingredient.Quantity} {ingredient.Unit}");
@@ -76,16 +75,37 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         }
         public static void DeleteRecipe()
         {
-
+            string dash = "------------------------------------------------------------";
+            if (ingredients.Count == 0 && steps.Count == 0)
+            {
+                Console.WriteLine("No recipes available to delete");
+                return;
+            }
         }
         public static void DeleteAll()
         {
-
+            string dash = "------------------------------------------------------------";
+            if (ingredients.Count == 0 && steps.Count == 0)
+            {
+                Console.WriteLine("No recipes available to delete");
+                return;
+            }
         }
 
         public static void resetScale()
         {
+            if(ingredients.Count == 0)
+            {
+                Console.WriteLine("No recipe available to reset scale.");
+                return;
+            }
 
+            for(int i = 0; i < ingredients.Count; i++)
+            {
+                ingredients[i].Quantity = originalQuantities[i].Quantity;
+            }
+
+            Console.WriteLine("Scale reset to original values.");
         }
         
         public static void close()
