@@ -31,5 +31,8 @@ Clearing All Data: Select the "Clear all data" option to delete all recipes from
 
 Resetting Scale: Use the "Original scale" option to reset the scaled quantities of ingredients in a recipe back to their original values.
 
+Github Link
+https://github.com/WhiteSkyTK/ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
+
 Licence 
 Under the MIT License.
