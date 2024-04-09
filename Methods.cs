@@ -281,14 +281,57 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                     return;
             }
 
-            //for loop to scale all values in the arraylist
-            foreach(Ingredient ingredient in ingredients)
+            // For each ingredient, adjust the quantity and unit based on the scaling factor
+            foreach (Ingredient ingredient in ingredients)
             {
-                ingredient.Quantity *= factor; //Calculation
+                // If unit is Teaspoons
+                if (ingredient.Unit == "Teaspoons")
+                {
+                    ingredient.Quantity *= factor;
+                    if (factor >= 2.0 && ingredient.Quantity >= 3.0)
+                    {
+                        // Convert to Tablespoons
+                        ingredient.Quantity /= 3.0;
+                        ingredient.Unit = "Tablespoons";
+                    }
+                }
+                // If unit is Tablespoons
+                else if (ingredient.Unit == "Tablespoons")
+                {
+                    ingredient.Quantity *= factor;
+                    if (factor >= 2.0 && ingredient.Quantity >= 16.0)
+                    {
+                        // Convert to Cups
+                        ingredient.Quantity /= 16.0;
+                        ingredient.Unit = "Cups";
+                    }
+                    else if (factor == 0.5 && ingredient.Quantity < 1.0)
+                    {
+                        // Convert to Teaspoons
+                        ingredient.Quantity *= 3.0;
+                        ingredient.Unit = "Teaspoons";
+                    }
+                }
+                // If unit is Cups
+                else if (ingredient.Unit == "Cups")
+                {
+                    ingredient.Quantity *= factor;
+                    if (factor == 0.5 && ingredient.Quantity < 1.0)
+                    {
+                        // Convert to Tablespoons
+                        ingredient.Quantity *= 16.0;
+                        ingredient.Unit = "Tablespoons";
+                    }
+                }
+                // For other units, simply scale the quantity
+                else
+                {
+                    ingredient.Quantity *= factor;
+                }
             }
 
             //if statement which the case with the scaling up or down displays the message
-            if(scaling == 1 || scaling == 2 || scaling == 3)
+            if (scaling == 1 || scaling == 2 || scaling == 3)
             {
                 //write line statement which tells the user that everything is good
                 Console.ForegroundColor = ConsoleColor.Green; //set color
