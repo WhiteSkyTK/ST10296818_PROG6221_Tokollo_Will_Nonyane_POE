@@ -13,6 +13,189 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         private static List<Step> steps = new List<Step>();
         private static List<Ingredient> originalQuantities = new List<Ingredient>();
 
+        //Method used to input recipe
+        public static void add()
+        {
+            //Used for the interface
+            string dash = "------------------------------------------------------------";
+
+            //decleartion
+            int numIngredints;
+
+            //Do loop which ensure that the user enters the correct vaule
+            do
+            {
+                Console.Write("Please enter the number of ingredients needed: ");
+                if (!int.TryParse(Console.ReadLine(), out numIngredints) || numIngredints <= 0) //input for the number of ingredients needed
+                {
+                    Console.ForegroundColor = ConsoleColor.Red; //set color
+                    Console.WriteLine("Invalid input. Please enter a vaild integer.");
+                    Console.ResetColor(); //reset color 
+                }
+            }
+            while (numIngredints <= 0);
+
+            //Try and catch to handle human errors
+            try
+            {
+                //For loop for the number of ingredients needed
+                for (int i = 0; i < numIngredints; i++)
+                {
+                    string Name; //decleartion
+                    //Do loop which checks for whitespaces
+                    do
+                    {
+                        //Name of ingredints
+                        Console.WriteLine(); // line break
+                        Console.Write("Enter the name of the ingredient: ");
+                        Name = Console.ReadLine(); //input for the name of the ingredient 
+                        if (string.IsNullOrWhiteSpace(Name))
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red; //set color
+                            Console.WriteLine("Ingredient name cannot be blank. Please enter a valid name.");
+                            Console.ResetColor(); //reset color
+                        }
+                    }
+                    while (string.IsNullOrWhiteSpace(Name));
+
+                    string Unit; //declearation for unit
+                    //Do loop which loop on error
+                    do
+                    {
+                        //Unit of measure
+                        Console.WriteLine(); //line break
+                        Messages.Unit(); //calling display menu for the units of measure
+                        int pick;
+                        if (int.TryParse(Console.ReadLine(), out pick) && pick >= 1 && pick <= 4) //input for unit option
+                        {
+                            //switch for unit options
+                            switch (pick)
+                            {
+                                case 1:
+                                    Unit = "Teaspoons";
+                                    break;
+                                case 2:
+                                    Unit = "Tablespoons";
+                                    break;
+                                case 3:
+                                    Unit = "Cups";
+                                    break;
+                                case 4:
+                                    Console.WriteLine("Please enter a unit of measurement");
+                                    Unit = Console.ReadLine();
+                                    break;
+                                default:
+                                    Console.ForegroundColor = ConsoleColor.Red; //set color
+                                    Console.WriteLine("Please pick a vaild value");
+                                    Console.ResetColor(); //reset color
+                                    throw new ArgumentOutOfRangeException(); //
+                            }
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red; //set color
+                            Console.WriteLine("Invalid input. Please enter a valid option (1-4).");
+                            Console.ResetColor(); //reset color
+                            Unit = null; //Set unit to null so it can loop
+                        }
+                    }
+                    while (Unit == null);
+
+                    double Quantity; //decleartion
+                    //Do loop which loops on error
+                    do
+                    {
+                        //Quantity
+                        Console.Write("\nEnter the quantity for " + Name + " (Only a interger): ");
+                        if (!double.TryParse(Console.ReadLine(), out Quantity) || Quantity <= 0) //input for quantity
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red; //set color
+                            Console.WriteLine("Invalid input. Please enter a valid positive number.");
+                            Console.ResetColor(); //reset color 
+                        }
+                    }
+                    while (Quantity <= 0);
+
+                    ingredients.Add(new Ingredient(Name, Quantity, Unit)); //adds the name, quantity and unit to the arraylist
+                    originalQuantities.Add(new Ingredient(Name, Quantity, Unit)); // Add original quantities to the arraylist
+                    Console.ForegroundColor = ConsoleColor.Cyan; //set color
+                    Console.WriteLine(dash);
+                    Console.ResetColor(); //reset color
+                    Console.WriteLine("Ingredient " + (i + 1) + " Has Been Saved"); //interface layout
+                    Console.ForegroundColor = ConsoleColor.Cyan; //set color
+                    Console.WriteLine(dash);
+                    Console.ResetColor(); //reset color
+                }
+
+                int numStep; //decleartion
+                //Do loop which loops on error
+                do
+                {
+                    //number of steps
+                    Console.Write("\nPlease enter the number of steps: ");
+                    if (!int.TryParse(Console.ReadLine(), out numStep) || numStep <= 0)  //input for number of steps 
+
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red; //set color
+                        Console.WriteLine("Invalid input. Please enter a valid integer.");
+                        Console.ResetColor(); //reset color
+                    }
+                }
+                while (numStep <= 0);
+
+                //For loop to enter the number of steps required
+                for (int i = 0; i < numStep; i++)
+                {
+                    string description; //decleartion
+                    //Do loop on error
+                    do
+                    {
+                        //Description for the steps
+                        Console.Write("\nPlease enter the description of what to do: ");
+                        description = Console.ReadLine().Trim(); //input and trim method to remove extra whitespaces
+                        if (string.IsNullOrWhiteSpace(description))
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red; //set color
+                            Console.WriteLine("Step description cannot be blank. Please enter a valid description.");
+                            Console.ResetColor(); //reset color
+                        }
+                    }
+                    while (string.IsNullOrWhiteSpace(description));
+
+                    Console.WriteLine(); //line break
+                    steps.Add(new Step(description)); //Add to the arraylist
+
+                    //Show user which step they are on
+                    Console.WriteLine("\nStep " + (i + 1) + " Has Been Saved");
+                }
+                //Write line statement to notify user that every is good
+                Console.ForegroundColor = ConsoleColor.Green; //set color
+                Console.WriteLine("\nInformation has been saved successfully");
+                Console.ResetColor(); //reset color
+            }
+            //This catchs invalid inputs for integers
+            catch (FormatException)
+            {
+                Console.ForegroundColor = ConsoleColor.Red; //set color
+                Console.WriteLine("Invaild input. Please enter a valid number.");
+                Console.ResetColor(); //reset color
+            }
+
+            catch (ArgumentException e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red; //set color
+                Console.WriteLine(e.Message);
+                Console.ResetColor(); //reset color
+            }
+            //This catchs all types of errors
+            catch (Exception)
+            {
+                Console.ForegroundColor = ConsoleColor.Red; //set color
+                Console.WriteLine("Something went wrong.");
+                Console.ResetColor(); //reset color
+            }
+        }
+
         //Display method used to display all values
         public static void Display()
         {
@@ -58,6 +241,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         //Scaling method to scale up or down the recipes ingredeint
         public static void Scale()
         {
+            //if statement which check for recipes
             if (ingredients.Count == 0 && steps.Count == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red; //set color
@@ -65,6 +249,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 Console.ResetColor();
                 return;
             }
+
 
             //Calling the display menu for the scales
             Methods.scaleOption();
@@ -77,16 +262,17 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             switch (scaling)
             {
                 case 1:
-                    factor = 1.0; //default value
-                    break;
-                case 2:
                     factor = 2.0; //double the value
                     break;
-                case 3:
+                case 2:
                     factor = 3.0; // triple the value
                     break;
-                case 4:
+                case 3:
                     factor = 0.5; // half the value
+                    break;
+                case 4:
+                    //Back button
+                    factor = 1.0;
                     break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Red; //set color
@@ -101,10 +287,15 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 ingredient.Quantity *= factor; //Calculation
             }
 
-            //write line statement which tells the user that everything is good
-            Console.ForegroundColor = ConsoleColor.Green; //set color
-            Console.WriteLine($"Recipe scaled by a factor of {factor}.");
-            Console.ResetColor(); //reset color
+            //if statement which the case with the scaling up or down displays the message
+            if(scaling == 1 || scaling == 2 || scaling == 3)
+            {
+                //write line statement which tells the user that everything is good
+                Console.ForegroundColor = ConsoleColor.Green; //set color
+                Console.WriteLine($"Recipe scaled by a factor of {factor}.");
+                Console.ResetColor(); //reset color
+            }
+            
         }
 
         //Delete recipe method used to delete a recipe(COMING SOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON)
@@ -169,10 +360,10 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 return;
             }
 
-            //Loop that scales all quantities
+            //Loop that resets scales all quantities
             for(int i = 0; i < ingredients.Count; i++)
             {
-                ingredients[i].Quantity = originalQuantities[i].Quantity;
+                ingredients[i].Quantity = originalQuantities[i].Quantity; //assigning orginal values to the default arraylist
             }
             //tells the user that everything is fine.
             Console.ForegroundColor = ConsoleColor.Green; //set color
@@ -204,7 +395,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             Console.ForegroundColor = ConsoleColor.Cyan; //set color
             Console.WriteLine(dash);
             Console.ResetColor(); //reset color
-            Console.Write("What would you like to do" + "\n" +
+            Console.Write("What would you like to do:" + "\n" +
                 "1. Add a new recipe" + "\n" +
                 "2. Display recipe" + "\n" +
                 "3. Scale recipe" + "\n" +
@@ -224,196 +415,12 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             Console.ForegroundColor = ConsoleColor.Cyan; //set color
             Console.WriteLine(dash);
             Console.ResetColor(); //reset color
-            Console.Write("What would you like to do" + "\n" +
-                "1. Factor of 1 (Default)" + "\n" +
-                "2. Factor of 2 (Double)" + "\n" +
-                "3. Factor of 3 (Triple)" + "\n" +
-                "4. Factor of 0.5 (Half)" + "\n" +
+            Console.Write("What would you like to do:" + "\n" +
+                "1. Factor of 2 (Double)" + "\n" +
+                "2. Factor of 3 (Triple)" + "\n" +
+                "3. Factor of 0.5 (Half)" + "\n" +
+                "4. Back" + "\n" +
                 "Option: ");
-        }
-
-        //Method used to input recipe
-        public static void add()
-        {
-            //Used for the interface
-            string dash = "------------------------------------------------------------";
-
-            //decleartion
-            int numIngredints;
-            //Do loop which ensure that the user enters the correct vaule
-            do
-            {
-                Console.Write("Please enter the number of ingredients needed: ");
-                if (!int.TryParse(Console.ReadLine(), out numIngredints) || numIngredints <= 0) //input for the number of ingredients needed
-                {
-                    Console.ForegroundColor = ConsoleColor.Red; //set color
-                    Console.WriteLine("Invalid input. Please enter a vaild integer.");
-                    Console.ResetColor(); //reset color 
-                }
-            }
-            while(numIngredints <= 0);
-                
-            //Try and catch to handle human errors
-            try
-            { 
-                //For loop for the number of ingredients needed
-                for (int i = 0; i < numIngredints; i++)
-                {
-                    string Name; //decleartion
-                    //Do loop which checks for whitespaces
-                    do
-                    {
-                        //Name of ingredints
-                        Console.WriteLine(); // line break
-                        Console.Write("Enter the name of the ingredient: ");
-                        Name = Console.ReadLine(); //input for the name of the ingredient 
-                        if (string.IsNullOrWhiteSpace(Name))
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red; //set color
-                            Console.WriteLine("Ingredient name cannot be blank. Please enter a valid name.");
-                            Console.ResetColor(); //reset color
-                        }
-                    }
-                    while (string.IsNullOrWhiteSpace(Name));
-
-                    string Unit; //declearation for unit
-                    //Do loop which loop on error
-                    do
-                    {
-                        //Unit of measure
-                        Console.WriteLine(); //line break
-                        Messages.Unit(); //calling display menu for the units of measure
-                        int pick; 
-                        if (int.TryParse(Console.ReadLine(), out pick) && pick >= 1 && pick <= 4) //input for unit option
-                        {
-                            //switch for unit options
-                            switch (pick)
-                            {
-                                case 1:
-                                    Unit = "Teaspoons";
-                                    break;
-                                case 2:
-                                    Unit = "Tablespoons";
-                                    break;
-                                case 3:
-                                    Unit = "Cups";
-                                    break;
-                                case 4:
-                                    Console.WriteLine("Please enter a unit of measurement");
-                                    Unit = Console.ReadLine();
-                                    break;
-                                default:
-                                    Console.ForegroundColor = ConsoleColor.Red; //set color
-                                    Console.WriteLine("Please pick a vaild value");
-                                    Console.ResetColor(); //reset color
-                                    throw new ArgumentOutOfRangeException(); //
-                            }
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red; //set color
-                            Console.WriteLine("Invalid input. Please enter a valid option (1-4).");
-                            Console.ResetColor(); //reset color
-                            Unit = null; //Set unit to null so it can loop
-                        }
-                    }
-                    while (Unit == null);
-
-                    double Quantity; //decleartion
-                    //Do loop which loops on error
-                    do
-                    {
-                        //Quantity
-                        Console.Write("\nEnter the quantity for " + Name + " (Only a interger): ");
-                        if (!double.TryParse(Console.ReadLine(), out Quantity) || Quantity <= 0) //input for quantity
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red; //set color
-                            Console.WriteLine("Invalid input. Please enter a valid positive number.");
-                            Console.ResetColor(); //reset color 
-                        }
-                    } 
-                    while (Quantity <= 0);
-
-                    ingredients.Add(new Ingredient(Name, Quantity, Unit)); //adds the name, quantity and unit to the arraylist
-                    Console.ForegroundColor = ConsoleColor.Cyan; //set color
-                    Console.WriteLine(dash);
-                    Console.ResetColor(); //reset color
-                    Console.WriteLine("Ingredient " + (i + 1) + " Has Been Saved"); //interface layout
-                    Console.ForegroundColor = ConsoleColor.Cyan; //set color
-                    Console.WriteLine(dash);
-                    Console.ResetColor(); //reset color
-
-                    // Add original quantities to the arraylist
-                    originalQuantities.AddRange(ingredients.Select(i => new Ingredient(i.Name, i.Quantity, i.Unit)));
-                }
-
-                int numStep; //decleartion
-                //Do loop which loops on error
-                do
-                {
-                    //number of steps
-                    Console.Write("\nPlease enter the number of steps: ");
-                    if (!int.TryParse(Console.ReadLine(), out numStep) || numStep <= 0)  //input for number of steps 
-
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red; //set color
-                        Console.WriteLine("Invalid input. Please enter a valid integer.");
-                        Console.ResetColor(); //reset color
-                    }
-                } 
-                while (numStep <= 0);
-                
-                //For loop to enter the number of steps required
-                for (int i = 0; i < numStep; i++)
-                {
-                    string description; //decleartion
-                    //Do loop on error
-                    do
-                    {
-                        //Description for the steps
-                        Console.Write("\nPlease enter the description of what to do: ");
-                        description = Console.ReadLine().Trim(); //input and trim method to remove extra whitespaces
-                        if (string.IsNullOrWhiteSpace(description))
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red; //set color
-                            Console.WriteLine("Step description cannot be blank. Please enter a valid description.");
-                            Console.ResetColor(); //reset color
-                        }
-                    }
-                    while (string.IsNullOrWhiteSpace(description));
-                    
-                    Console.WriteLine(); //line break
-                    steps.Add(new Step(description)); //Add to the arraylist
-
-                    //Show user which step they are on
-                    Console.WriteLine("\nStep " + (i + 1) + " Has Been Saved");
-                }
-                //Write line statement to notify user that every is good
-                Console.ForegroundColor = ConsoleColor.Green; //set color
-                Console.WriteLine("\nInformation has been saved successfully");
-                Console.ResetColor(); //reset color
-            }
-            //This catchs invalid inputs for integers
-            catch(FormatException)
-            {
-                Console.ForegroundColor = ConsoleColor.Red; //set color
-                Console.WriteLine("Invaild input. Please enter a valid number.");
-                Console.ResetColor(); //reset color
-            }
-
-            catch(ArgumentException e)
-            {
-                Console.ForegroundColor = ConsoleColor.Red; //set color
-                Console.WriteLine(e.Message);
-                Console.ResetColor(); //reset color
-            }
-            //This catchs all types of errors
-            catch (Exception) 
-            {
-                Console.ForegroundColor = ConsoleColor.Red; //set color
-                Console.WriteLine("Something went wrong.");
-                Console.ResetColor(); //reset color
-            }
         }
     }
 
@@ -432,7 +439,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         //method of the display menu for the unit of measure
         public static void Unit()
         {
-            Console.Write("Please pick a unit of measure" + "\n" +
+            Console.Write("Please pick a unit of measure:" + "\n" +
                 "1. Teaspoons (tsp)" + "\n" +
                 "2. Tablespoons (tbsp)" + "\n" +
                 "3. Cups" + "\n" +
