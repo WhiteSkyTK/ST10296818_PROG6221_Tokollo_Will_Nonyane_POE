@@ -407,6 +407,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             for(int i = 0; i < ingredients.Count; i++)
             {
                 ingredients[i].Quantity = originalQuantities[i].Quantity; //assigning orginal values to the default arraylist
+                ingredients[i].Unit = originalQuantities[i].Unit; // assigning original values to the default ones (as user entered)
             }
             //tells the user that everything is fine.
             Console.ForegroundColor = ConsoleColor.Green; //set color
