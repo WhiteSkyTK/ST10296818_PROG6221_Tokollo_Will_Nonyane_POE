@@ -1,10 +1,14 @@
 ﻿using ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1;
 using System;
+using System.Collections.Generic;
 
 namespace POE
 {
     class Program
     {
+        // List to store recipes
+        static List<Recipe> recipes = new List<Recipe>(); 
+
         static void Main(string[] args)
         {
             int option; //declearation
