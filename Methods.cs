@@ -580,9 +580,8 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         public static void close()
         {
             Console.ForegroundColor= ConsoleColor.Green; //set color
-            Console.WriteLine("Thank you for using the system\n" + "Press any key to close");
+            Console.WriteLine("Thank you for using the system\n");
             Console.ResetColor(); //reset color
-            Console.ReadKey();
         }
 
         //Methods to start the program and contains all the methods
