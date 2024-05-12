@@ -17,8 +17,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         {
             //Used for the interface and declearyion
             string dash = "------------------------------------------------------------";
-            int numRecipes;
+            int numRecipes; //DEcleartion
 
+            //Do loop to handle errors
             do
             {
                 Console.Write("Please enter the number of recipes to add: ");
@@ -35,7 +36,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             try
             {
                 //for loop for number of recipes needed
-                for (int i = 0; i < numRecipes; i++)
+                for (int i = 0; i < numRecipes; i++)  
                 {
                     Console.WriteLine(); //line break
                     Console.Write($"Enter the name for recipe {i + 1}: ");
@@ -44,8 +45,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                     Recipe newRecipe = new Recipe();
                     newRecipe.Name = recipeName; //set the name
 
-                    //decleartion
-                    int numIngredints;
+                    int numIngredints; //decleartion
                     //Do loop which ensure that the user enters the correct vaule
                     do
                     {
@@ -82,7 +82,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                             }
                             while (string.IsNullOrWhiteSpace(Name));
 
-                            double Calories;
+                            double Calories; //decleartion
                             do
                             {
                                 // Calories
@@ -101,7 +101,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                             }
                             while (true);
 
-                            // Food group
+                            // Food group menu
                             Console.WriteLine("\nPlease select the food group for " + Name + ": " +
                                 "\n1. Starchy foods" +
                                 "\n2. Vegetables and fruits" +
@@ -111,7 +111,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                                 "\n6. Fats and oil" +
                                 "\n7. Water");
 
-                            string FoodGroup;
+                            string FoodGroup; //decleartions
                             int foodGroupChoice;
                             do
                             {
@@ -124,7 +124,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                                 }
                                 else
                                 {
-                                    switch (foodGroupChoice)
+                                    switch (foodGroupChoice) //options
                                     {
                                         case 1:
                                             FoodGroup = "Starchy foods";
@@ -168,8 +168,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                                 int pick;
                                 if (int.TryParse(Console.ReadLine(), out pick) && pick >= 1 && pick <= 4) //input for unit option
                                 {
-                                    //switch for unit options
-                                    switch (pick)
+                                    switch (pick) //switch for unit options
                                     {
                                         case 1:
                                             Unit = "Teaspoons";
@@ -625,7 +624,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 "4. Back" + "\n" +
                 "Option: ");
         }
-
         // Delegate to handle notification when a recipe exceeds 300 calories
         public delegate void ExceedingCaloriesHandler(string recipeName, double totalCalories);
         public static event ExceedingCaloriesHandler NotifyExceedingCalories;
