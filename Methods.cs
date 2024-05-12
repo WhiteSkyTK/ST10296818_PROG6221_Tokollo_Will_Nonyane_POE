@@ -271,6 +271,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                             steps.Add(step);
 
                             //Show user which step they are on
+                            Console.ForegroundColor = ConsoleColor.Cyan; // Set color
+                            Console.WriteLine(dash);
+                            Console.ResetColor(); // Reset color
                             Console.ForegroundColor = ConsoleColor.Green; //set color
                             Console.WriteLine("\nStep " + (y + 1) + " Has Been Saved");
                             Console.ResetColor(); //reset color
@@ -285,9 +288,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                         Console.ForegroundColor = ConsoleColor.Green; // Set color
                         Console.WriteLine("Recipe " + (i + 1) + " Has Been Saved"); // Interface layout
                         Console.ResetColor(); // Reset color
-                        Console.ForegroundColor = ConsoleColor.Cyan; // Set color
-                        Console.WriteLine(dash);
-                        Console.ResetColor(); // Reset color
+                        
                     }
                     //This catchs invalid inputs for integers
                     catch (FormatException)
@@ -541,6 +542,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                     ingredients.Clear();
                     steps.Clear();
                     originalQuantities.Clear();
+                    recipes.Clear();
                     Console.ForegroundColor = ConsoleColor.Green; //set color
                     Console.WriteLine("All recipes have been deleted.");
                     Console.ResetColor();
@@ -660,7 +662,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         public string Unit { get; set; }
         public double Calories { get; set; }
         public string FoodGroup { get; set; }
-
         public Ingredient(string name, double quantity, string unit, double calories, string foodGroup)
         {
             Name = name;
@@ -674,7 +675,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
     class Step
     {
         public string Description { get; set; }
-
         public Step(string description)
         {
             Description = description; 
@@ -686,7 +686,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         public string Name { get; set; }
         public List<Ingredient> Ingredients { get; set; }
         public List<Step> Steps { get; set; }
-
         public Recipe()
         {
             Ingredients = new List<Ingredient>();

@@ -82,7 +82,9 @@ namespace POE
         private static void NotifyExceedingCaloriesHandler(string recipeName, double totalCalories)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Alert: The recipe '{recipeName}' has exceeded 300 calories. Total calories: {totalCalories}");
+            Console.WriteLine($"Alert: The recipe '{recipeName}' has exceeded 300 calories." +
+                $"\nThe recipe is high in energy density, " +
+                $"\nWhich cooould contribute to weight gain if consumed regularly");
             Console.ResetColor();
         }
     }
