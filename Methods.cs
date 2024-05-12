@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
 {
@@ -18,10 +15,8 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         //Method used to input recipe
         public static void add()
         {
-            //Used for the interface
+            //Used for the interface and declearyion
             string dash = "------------------------------------------------------------";
-
-            //decleartion
             int numRecipes;
 
             do
@@ -46,13 +41,11 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                     Console.Write($"Enter the name for recipe {i + 1}: ");
                     string recipeName = Console.ReadLine().Trim(); //input for name
                     Console.WriteLine(); //line break
-
                     Recipe newRecipe = new Recipe();
                     newRecipe.Name = recipeName; //set the name
 
                     //decleartion
                     int numIngredints;
-
                     //Do loop which ensure that the user enters the correct vaule
                     do
                     {
@@ -73,7 +66,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                         for (int x = 0; x < numIngredints; x++)
                         {
                             string Name; //decleartion
-                                         //Do loop which checks for whitespaces
+                            //Do loop which checks for whitespaces
                             do
                             {
                                 //Name of ingredints
@@ -165,7 +158,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                             }
                             while (true);
 
-
                             string Unit; //declearation for unit
                                          //Do loop which loop on error
                             do
@@ -210,7 +202,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                             while (Unit == null);
 
                             double Quantity; //decleartion
-                                             //Do loop which loops on error
+                            //Do loop which loops on error
                             do
                             {
                                 //Quantity
@@ -224,7 +216,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                             }
                             while (Quantity <= 0);
 
-                            ingredients.Add(new Ingredient(Name, Quantity, Unit, Calories, FoodGroup)); //adds to the arraylist
+                            Ingredient ingredient = new Ingredient(Name, Quantity, Unit, Calories, FoodGroup);
+                            newRecipe.Ingredients.Add(ingredient);
+                            ingredients.Add(ingredient); //adds to the arraylist
                             originalQuantities.Add(new Ingredient(Name, Quantity, Unit, Calories, FoodGroup)); // Add original quantities to the arraylist
                             Console.ForegroundColor = ConsoleColor.Cyan; //set color
                             Console.WriteLine(dash);
@@ -273,7 +267,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                             while (string.IsNullOrWhiteSpace(description));
 
                             Console.WriteLine(); //line break
-                            steps.Add(new Step(description)); //Add to the arraylist
+                            Step step = new Step(description);
+                            newRecipe.Steps.Add(step);
+                            steps.Add(step);
 
                             //Show user which step they are on
                             Console.ForegroundColor = ConsoleColor.Green; //set color
@@ -301,7 +297,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                         Console.WriteLine("Invaild input. Please enter a valid number.");
                         Console.ResetColor(); //reset color
                     }
-
                     catch (ArgumentException e)
                     {
                         Console.ForegroundColor = ConsoleColor.Red; //set color
@@ -316,7 +311,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                         Console.ResetColor(); //reset color
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -326,13 +320,13 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             }
         }
             
-
         //Display method used to display all values
         public static void Display()
         {
             //Dash string used for the interface of the program
             string dash = "------------------------------------------------------------";
 
+            List<string> recipeNames = recipes.Select(r => r.Name).OrderBy(n => n).ToList();
             // If statement used to check if any values in the array
             if (recipes.Count == 0)
             {
@@ -347,21 +341,12 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             Console.WriteLine("Recipe List:");
             Console.ResetColor();
 
-            // Sort recipes alphabetically by name
-            List<string> recipeNames = new List<string>();
-            foreach (var recipe in recipes)
-            {
-                recipeNames.Add(recipe.Name);
-            }
-            recipeNames.Sort();
-
-            // Display sorted recipe names
             for (int i = 0; i < recipeNames.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {recipeNames[i]}");
             }
 
-            // Prompt the user to choose a recipe
+            //option for recipe
             Console.Write("\nChoose a recipe by entering its number (or 0 to go back): ");
             int choice;
             if (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > recipeNames.Count)
@@ -373,20 +358,22 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             }
             else if (choice == 0)
             {
-                // User chose to go back
                 return;
             }
 
-            // Get the chosen recipe
             Recipe chosenRecipe = recipes.FirstOrDefault(recipe => recipe.Name == recipeNames[choice - 1]);
 
-            // Display details of the chosen recipe
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("\nRecipe Details:");
-            Console.ResetColor();
-            Console.WriteLine($"Name: {chosenRecipe.Name}");
+            double totalCalories = chosenRecipe.Ingredients.Sum(i => i.Calories);
 
-            // Display ingredients
+            if (totalCalories > 300)
+            {
+                NotifyExceedingCalories?.Invoke(chosenRecipe.Name, totalCalories);
+            }
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\nRecipe Details for '{chosenRecipe.Name}':");
+            Console.ResetColor();
+
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nIngredients:");
             Console.ResetColor();
@@ -395,7 +382,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 Console.WriteLine($"{ingredient.Name}: {ingredient.Quantity} {ingredient.Unit}");
             }
 
-            // Display steps
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nSteps:");
             Console.ResetColor();
@@ -403,6 +389,15 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             {
                 Console.WriteLine($"{i + 1}. {chosenRecipe.Steps[i].Description}");
             }
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"\nTotal Calories: {totalCalories}");
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nClick any key to continue...");
+            Console.ResetColor();
+            Console.ReadKey();
         }
 
         //Scaling method to scale up or down the recipes ingredeint
@@ -416,7 +411,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 Console.ResetColor();
                 return;
             }
-
 
             //Calling the display menu for the scales
             Methods.scaleOption();
@@ -504,8 +498,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 Console.ForegroundColor = ConsoleColor.Green; //set color
                 Console.WriteLine($"Recipe scaled by a factor of {factor}.");
                 Console.ResetColor(); //reset color
-            }
-            
+            } 
         }
 
         //Delete recipe method used to delete a recipe(COMING SOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON)
@@ -602,7 +595,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         {
             //Used for the interface
             string dash = "------------------------------------------------------------";
-
             Console.ForegroundColor = ConsoleColor.Cyan; //set color
             Console.WriteLine(dash);
             Console.ResetColor(); //reset color
@@ -633,6 +625,10 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 "4. Back" + "\n" +
                 "Option: ");
         }
+
+        // Delegate to handle notification when a recipe exceeds 300 calories
+        public delegate void ExceedingCaloriesHandler(string recipeName, double totalCalories);
+        public static event ExceedingCaloriesHandler NotifyExceedingCalories;
     }
 
     //Class which stores messasges and menu options
@@ -658,7 +654,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                 "Option: ");
         }
     }
-
     //Class which stores the ingredients name, quantity, unit (Using getters and setters)
     class Ingredient
     {
@@ -677,7 +672,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             FoodGroup = foodGroup;
         }
     }
-
     //Class which store the steps description (Using getters and setters)
     class Step
     {
@@ -688,7 +682,6 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             Description = description; 
         }
     }
-
     // Define Recipe class to hold ingredients and steps
     class Recipe
     {

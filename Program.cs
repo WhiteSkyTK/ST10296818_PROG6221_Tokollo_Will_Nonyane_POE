@@ -11,6 +11,8 @@ namespace POE
 
         static void Main(string[] args)
         {
+            // Subscribe to the NotifyExceedingCalories event
+            Methods.NotifyExceedingCalories += NotifyExceedingCaloriesHandler;
             int option; //declearation
             Messages.Welcome(); //Method which hold the welcome message
             //Do loop which loops if an invaild input is entered
@@ -75,6 +77,13 @@ namespace POE
                 }
             }
             while (option != 7);
+        }
+        // Event handler for exceeding calories notification
+        private static void NotifyExceedingCaloriesHandler(string recipeName, double totalCalories)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Alert: The recipe '{recipeName}' has exceeded 300 calories. Total calories: {totalCalories}");
+            Console.ResetColor();
         }
     }
 }
