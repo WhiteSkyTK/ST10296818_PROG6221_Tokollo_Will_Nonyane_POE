@@ -1,4 +1,8 @@
 Changes that have been made from part 1
+
+Link
+https://github.com/WhiteSkyTK/ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1/
+
 Add delegate notifers which notify the user of the amount of calories the recipe contains. Removes arrays and started using generic collections which makes storing ingredients and steps match easier and the it more to work with in an list. Added more class and functions to accommodate the new functionality in the methods like storing recipes and there name, this also include food groups. The user has the option to store as many recipes as they want and can later on choose the recipe they want see. which is a easy way to do it things in this time of age.
 
 Recipe Manager Application (Recipez)
