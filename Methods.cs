@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
 {
-    internal class Methods
+    public class Methods
     {
         //(Declearation) Arraylist added to store Ingredient and orginal values entered
         private static List<Recipe> recipes = new List<Recipe>();
@@ -657,7 +657,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         }
     }
     //Class which stores the ingredients name, quantity, unit (Using getters and setters)
-    class Ingredient
+    public class Ingredient
     {
         public string Name { get; set; }
         public double Quantity { get; set; }
@@ -674,7 +674,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         }
     }
     //Class which store the steps description (Using getters and setters)
-    class Step
+    public class Step
     {
         public string Description { get; set; }
         public Step(string description)
@@ -683,7 +683,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         }
     }
     // Define Recipe class to hold ingredients and steps
-    class Recipe
+    public class Recipe
     {
         public string Name { get; set; }
         public List<Ingredient> Ingredients { get; set; }
