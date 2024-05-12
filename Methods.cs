@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
     internal class Methods
     {
         //(Declearation) Arraylist added to store Ingredient and orginal values entered
+        private static List<Recipe> recipes = new List<Recipe>();
         private static List<Ingredient> ingredients = new List<Ingredient>();
         private static List<Step> steps = new List<Step>();
         private static List<Ingredient> originalQuantities = new List<Ingredient>();
@@ -87,6 +89,83 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                             }
                             while (string.IsNullOrWhiteSpace(Name));
 
+                            double Calories;
+                            do
+                            {
+                                // Calories
+                                Console.Write("\nEnter the number of calories for " + Name + ": ");
+                                if (!double.TryParse(Console.ReadLine(), out double calories) || calories < 0)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red; //set color
+                                    Console.WriteLine("Invalid input. Please enter a valid positive number for calories.");
+                                    Console.ResetColor(); //reset color 
+                                }
+                                else
+                                {
+                                    Calories = calories;
+                                    break;
+                                }
+                            }
+                            while (true);
+
+                            // Food group
+                            Console.WriteLine("\nPlease select the food group for " + Name + ": " +
+                                "\n1. Starchy foods" +
+                                "\n2. Vegetables and fruits" +
+                                "\n3. Dry beans, peas, lentils and soya" +
+                                "\n4. Chicken, fish, meat and eggs" +
+                                "\n5. Milk and dairy products" +
+                                "\n6. Fats and oil" +
+                                "\n7. Water");
+
+                            string FoodGroup;
+                            int foodGroupChoice;
+                            do
+                            {
+                                Console.Write("Option: ");
+                                if (!int.TryParse(Console.ReadLine(), out foodGroupChoice) || foodGroupChoice < 1 || foodGroupChoice > 7)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red; //set color
+                                    Console.WriteLine("Invalid input. Please enter a valid food group option (1-7).");
+                                    Console.ResetColor(); //reset color
+                                }
+                                else
+                                {
+                                    switch (foodGroupChoice)
+                                    {
+                                        case 1:
+                                            FoodGroup = "Starchy foods";
+                                            break;
+                                        case 2:
+                                            FoodGroup = "Vegetables and fruits";
+                                            break;
+                                        case 3:
+                                            FoodGroup = "Dry beans, peas, lentils and soya";
+                                            break;
+                                        case 4:
+                                            FoodGroup = "Chicken, fish, meat and eggs";
+                                            break;
+                                        case 5:
+                                            FoodGroup = "Milk and dairy products";
+                                            break;
+                                        case 6:
+                                            FoodGroup = "Fats and oil";
+                                            break;
+                                        case 7:
+                                            FoodGroup = "Water";
+                                            break;
+                                        default:
+                                            Console.ForegroundColor = ConsoleColor.Red; //set color
+                                            Console.WriteLine("Please pick a vaild value");
+                                            Console.ResetColor(); //reset color
+                                            throw new ArgumentOutOfRangeException();
+                                    }
+                                    break;
+                                }
+                            }
+                            while (true);
+
+
                             string Unit; //declearation for unit
                                          //Do loop which loop on error
                             do
@@ -145,8 +224,8 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                             }
                             while (Quantity <= 0);
 
-                            ingredients.Add(new Ingredient(Name, Quantity, Unit)); //adds the name, quantity and unit to the arraylist
-                            originalQuantities.Add(new Ingredient(Name, Quantity, Unit)); // Add original quantities to the arraylist
+                            ingredients.Add(new Ingredient(Name, Quantity, Unit, Calories, FoodGroup)); //adds to the arraylist
+                            originalQuantities.Add(new Ingredient(Name, Quantity, Unit, Calories, FoodGroup)); // Add original quantities to the arraylist
                             Console.ForegroundColor = ConsoleColor.Cyan; //set color
                             Console.WriteLine(dash);
                             Console.ResetColor(); //reset color
@@ -201,13 +280,19 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                             Console.WriteLine("\nStep " + (y + 1) + " Has Been Saved");
                             Console.ResetColor(); //reset color
                         }
+                        //add the new recipe list
+                        recipes.Add(newRecipe);
+
                         //Write line statement to notify user that every is good
-                        Console.ForegroundColor = ConsoleColor.Cyan; //set color
+                        Console.ForegroundColor = ConsoleColor.Cyan; // Set color
                         Console.WriteLine(dash);
-                        Console.ResetColor(); //reset color
-                        Console.ForegroundColor = ConsoleColor.Green; //set color
-                        Console.WriteLine("Information has been saved successfully");
-                        Console.ResetColor(); //reset color
+                        Console.ResetColor(); // Reset color
+                        Console.ForegroundColor = ConsoleColor.Green; // Set color
+                        Console.WriteLine("Recipe " + (i + 1) + " Has Been Saved"); // Interface layout
+                        Console.ResetColor(); // Reset color
+                        Console.ForegroundColor = ConsoleColor.Cyan; // Set color
+                        Console.WriteLine(dash);
+                        Console.ResetColor(); // Reset color
                     }
                     //This catchs invalid inputs for integers
                     catch (FormatException)
@@ -248,40 +333,76 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             //Dash string used for the interface of the program
             string dash = "------------------------------------------------------------";
 
-            //If statement used to check if any values in the array
-            if (ingredients.Count == 0 && steps.Count == 0)
+            // If statement used to check if any values in the array
+            if (recipes.Count == 0)
             {
-                Console.ForegroundColor = ConsoleColor.Red; //set color
+                Console.ForegroundColor = ConsoleColor.Red; // Set color
                 Console.WriteLine("No recipes available to display.");
                 Console.ResetColor();
                 return;
             }
 
-            //Interface and the display (with uses a foreach loop and a for loop)
-            
-            Console.ForegroundColor = ConsoleColor.Cyan; //set color
-            Console.WriteLine(dash);
-            Console.WriteLine("Display:");
-            Console.WriteLine(dash);
-            Console.ResetColor(); //reset color
-            Console.ForegroundColor = ConsoleColor.Magenta; //set color
-            Console.WriteLine("Ingredient:");
-            Console.ResetColor(); //reset color
-            foreach(Ingredient ingredient in ingredients)
+            //Display menu for selecting a recipe
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Recipe List:");
+            Console.ResetColor();
+
+            // Sort recipes alphabetically by name
+            List<string> recipeNames = new List<string>();
+            foreach (var recipe in recipes)
+            {
+                recipeNames.Add(recipe.Name);
+            }
+            recipeNames.Sort();
+
+            // Display sorted recipe names
+            for (int i = 0; i < recipeNames.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {recipeNames[i]}");
+            }
+
+            // Prompt the user to choose a recipe
+            Console.Write("\nChoose a recipe by entering its number (or 0 to go back): ");
+            int choice;
+            if (!int.TryParse(Console.ReadLine(), out choice) || choice < 0 || choice > recipeNames.Count)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid input. Please enter a valid recipe number.");
+                Console.ResetColor();
+                return;
+            }
+            else if (choice == 0)
+            {
+                // User chose to go back
+                return;
+            }
+
+            // Get the chosen recipe
+            Recipe chosenRecipe = recipes.FirstOrDefault(recipe => recipe.Name == recipeNames[choice - 1]);
+
+            // Display details of the chosen recipe
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\nRecipe Details:");
+            Console.ResetColor();
+            Console.WriteLine($"Name: {chosenRecipe.Name}");
+
+            // Display ingredients
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("\nIngredients:");
+            Console.ResetColor();
+            foreach (var ingredient in chosenRecipe.Ingredients)
             {
                 Console.WriteLine($"{ingredient.Name}: {ingredient.Quantity} {ingredient.Unit}");
             }
 
-            Console.ForegroundColor = ConsoleColor.Magenta; //set color
+            // Display steps
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nSteps:");
-            Console.ResetColor(); //reset color
-            for (int i = 0; i < steps.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {steps[i].Description}");
-            }
-            Console.ForegroundColor = ConsoleColor.Cyan; //set color
-            Console.WriteLine(dash + "\n");
             Console.ResetColor();
+            for (int i = 0; i < chosenRecipe.Steps.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {chosenRecipe.Steps[i].Description}");
+            }
         }
 
         //Scaling method to scale up or down the recipes ingredeint
@@ -544,12 +665,16 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         public string Name { get; set; }
         public double Quantity { get; set; }
         public string Unit { get; set; }
+        public double Calories { get; set; }
+        public string FoodGroup { get; set; }
 
-        public Ingredient(string name, double quantity, string unit)
+        public Ingredient(string name, double quantity, string unit, double calories, string foodGroup)
         {
             Name = name;
             Quantity = quantity;
             Unit = unit;
+            Calories = calories;
+            FoodGroup = foodGroup;
         }
     }
 
