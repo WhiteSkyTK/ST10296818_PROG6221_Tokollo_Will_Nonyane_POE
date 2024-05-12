@@ -275,7 +275,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                             Console.WriteLine(dash);
                             Console.ResetColor(); // Reset color
                             Console.ForegroundColor = ConsoleColor.Green; //set color
-                            Console.WriteLine("\nStep " + (y + 1) + " Has Been Saved");
+                            Console.WriteLine("Step " + (y + 1) + " Has Been Saved");
                             Console.ResetColor(); //reset color
                         }
                         //add the new recipe list
@@ -325,7 +325,8 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
         {
             //Dash string used for the interface of the program
             string dash = "------------------------------------------------------------";
-
+            
+            //
             List<string> recipeNames = recipes.Select(r => r.Name).OrderBy(n => n).ToList();
             // If statement used to check if any values in the array
             if (recipes.Count == 0)
@@ -362,10 +363,9 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             }
 
             Recipe chosenRecipe = recipes.FirstOrDefault(recipe => recipe.Name == recipeNames[choice - 1]);
-
             double totalCalories = chosenRecipe.Ingredients.Sum(i => i.Calories);
 
-            if (totalCalories > 300)
+            if (totalCalories >= 0)
             {
                 NotifyExceedingCalories?.Invoke(chosenRecipe.Name, totalCalories);
             }
@@ -544,10 +544,13 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
                     originalQuantities.Clear();
                     recipes.Clear();
                     Console.ForegroundColor = ConsoleColor.Green; //set color
-                    Console.WriteLine("All recipes have been deleted.");
+                    Console.WriteLine("\nAll recipes have been deleted.");
                     Console.ResetColor();
                     break;
                 case 2:
+                    Console.ForegroundColor = ConsoleColor.Green; //set color
+                    Console.WriteLine("\nNot action has been taken.");
+                    Console.ResetColor();
                     break;
             }
         }

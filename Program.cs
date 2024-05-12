@@ -82,11 +82,52 @@ namespace POE
         private static void NotifyExceedingCaloriesHandler(string recipeName, double totalCalories)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Alert: The recipe '{recipeName}' has exceeded 300 calories." +
-                $"\nThe recipe is high in energy density, " +
-                $"\nWhich cooould contribute to weight gain if consumed regularly");
-            Console.ResetColor();
+            string impactMessage;
+            if (totalCalories <= 100)
+            {
+                impactMessage = $"This recipe '{recipeName}'is low in calories and suitable for maintaining a balanced diet.";
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(impactMessage);
+                Console.ResetColor();
+            }
+            else if (totalCalories <= 150)
+            {
+                impactMessage = $"This recipe '{recipeName}'e provides a moderate amount of calories and can contribute to a healthy meal.";
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(impactMessage);
+                Console.ResetColor();
+            }
+            else if (totalCalories <= 200)
+            {
+                impactMessage = $"This recipe '{recipeName}' provides a reasonable amount of calories, ideal for a satisfying meal.";
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(impactMessage);
+                Console.ResetColor();
+            }
+            else if (totalCalories <= 250)
+            {
+                impactMessage = $"This recipe '{recipeName}' contains a moderate to high amount of calories and can serve as a substantial meal.";
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(impactMessage);
+                Console.ResetColor();
+            }
+            else if (totalCalories > 300)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                impactMessage = $"Alret : The recipe '{recipeName}' has exceeded 300 calories." +
+                    $"\nThe recipe is high in enery density." +
+                    $"Note: This may contribute to weight gain if consumed regularly. Consider moderation.";
+                Console.WriteLine(impactMessage);
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.ForegroundColor= ConsoleColor.Red;
+                Console.WriteLine("There is a error in the calories inputed");
+                Console.ResetColor();
+            }
         }
+
     }
 }
 
