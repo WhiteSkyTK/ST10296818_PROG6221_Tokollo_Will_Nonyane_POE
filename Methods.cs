@@ -693,15 +693,5 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
             Ingredients = new List<Ingredient>();
             Steps = new List<Step>();
         }
-        //used for the unit test
-        public double CalculateTotalCalories()
-        {
-            double totalCalories = 0;
-            foreach (var ingredient in Ingredients)
-            {
-                totalCalories += ingredient.Calories;
-            }
-            return totalCalories;
-        }
     }
 }
