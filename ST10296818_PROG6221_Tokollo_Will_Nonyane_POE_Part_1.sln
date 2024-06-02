@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST10296818_PROG6221_Tokollo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_2_Unit_Test", "..\ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_2_Unit_Test\ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_2_Unit_Test.csproj", "{7E983D8C-2390-4D83-8368-2F42DBDAA298}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ST10296818_Tokollo_Will_Nonyane_POE_", "..\ST10296818_Tokollo_Will_Nonyane_POE_\ST10296818_Tokollo_Will_Nonyane_POE_.csproj", "{EA9DFE77-633E-4074-8A55-B71BAD2D571A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ST10296818_Tokollo_Will_Nonyane_POE_", "..\ST10296818_Tokollo_Will_Nonyane_POE_\ST10296818_Tokollo_Will_Nonyane_POE_.csproj", "{EA9DFE77-633E-4074-8A55-B71BAD2D571A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Part3", "Part3", "{EE72A612-F3B8-463B-A8CA-DA60414CE882}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +32,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9BB3048C-0569-4E2F-9820-4AD4D250D0FF} = {EE72A612-F3B8-463B-A8CA-DA60414CE882}
+		{7E983D8C-2390-4D83-8368-2F42DBDAA298} = {EE72A612-F3B8-463B-A8CA-DA60414CE882}
+		{EA9DFE77-633E-4074-8A55-B71BAD2D571A} = {EE72A612-F3B8-463B-A8CA-DA60414CE882}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {766EAB63-116A-4201-858A-15BBDC276F0E}

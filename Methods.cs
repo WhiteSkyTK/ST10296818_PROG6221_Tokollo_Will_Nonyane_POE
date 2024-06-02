@@ -6,7 +6,7 @@ namespace ST10296818_PROG6221_Tokollo_Will_Nonyane_POE_Part_1
 {
     public class Methods
     {
-        //(Declearation) Arraylist added to store Ingredient and orginal values entered
+        //(Declearation) Arraylist added to store Ingredient and orginal values enteredm
         private static List<Recipe> recipes = new List<Recipe>();
         private static List<Ingredient> ingredients = new List<Ingredient>();
         private static List<Step> steps = new List<Step>();
