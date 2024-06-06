@@ -35,6 +35,11 @@ How to Compile and Run the Program
 Prerequisites
 Ensure you have .NET Core SDK installed on your local machine.
 
+Changes from Part 2
+Made the application to be user-freindly using windows presentaion foundation (WPF). The implecation of filter which filters the list of recipes by entering the name of an ingredient that must be in the recipe or choosing a food group that must be in the recipe or by selecting a maximum number of calories.
+all of this was made while still keeping the application neat and clean and easy to use by any user. the same functionailty are still here where a user is able to add recipe and display them and make wasy modification to the recipe
+
+
 Download or Clone Repository
 Clone or download the repository from GitHub.
 
